@@ -39,7 +39,7 @@ import {
 } from "./routes/ShopRoutes";
 import ShopAllProducts from "./pages/Shop/ShopAllProducts";
 import { getAllProducts } from "./redux/actions/product";
-import AllOrderOfUser from "./components/Shop/AllOrderOfUser";
+// import AllOrderOfUser from "./components/Shop/AllOrderOfUser";
 import ShopAllOrdersOfUser from "./pages/Shop/ShopAllOrdersOfUser";
 
 const App = () => {
