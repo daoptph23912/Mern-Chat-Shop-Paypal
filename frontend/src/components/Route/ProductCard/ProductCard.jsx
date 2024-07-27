@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import Ratings from "../../Products/Ratings";
 import axios from "axios";
@@ -19,7 +18,7 @@ import { addToCart } from "../../../redux/reducers/user";
 import { loadUser } from "../../../redux/actions/user";
 import { server } from "../../../server";
 
-const ProductCard = ({ data, isEvent }) => {
+const ProductCard = (data, isEvent) => {
   const { cart } = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -84,7 +83,11 @@ const ProductCard = ({ data, isEvent }) => {
               {data.discount && data.discount.status ? (
                 <>
                   <h5 className={`${styles.productDiscountPrice}`}>
-                    {(data.originalPrice - (data.originalPrice * (data.discount.percent / 100))).toLocaleString()} VND
+                    {(
+                      data.originalPrice -
+                      data.originalPrice * (data.discount.percent / 100)
+                    ).toLocaleString()}{" "}
+                    VND
                   </h5>
                   <h4 className={`${styles.price}`}>
                     {data.originalPrice &&

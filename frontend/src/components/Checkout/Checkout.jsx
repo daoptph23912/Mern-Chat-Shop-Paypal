@@ -31,14 +31,14 @@ const Checkout = () => {
   }, []);
 
   const paymentSubmit = () => {
-    if (
-      address === "" || city === "" || ward === "" || district === ""
-    ) {
+    if (address === "" || city === "" || ward === "" || district === "") {
       toast.error("Please choose your delivery address!");
     } else {
       const shippingAddress = {
         address,
-        city,district,ward
+        city,
+        district,
+        ward,
       };
 
       const orderData = {
@@ -125,7 +125,10 @@ const Checkout = () => {
         <div className="w-full 800px:w-[65%]">
           <ShippingInfo
             user={user}
-            district={district} setDistrict={setDistrict} ward={ward} setWard={setWard}
+            district={district}
+            setDistrict={setDistrict}
+            ward={ward}
+            setWard={setWard}
             city={city}
             setCity={setCity}
             userInfo={userInfo}
@@ -157,16 +160,19 @@ const Checkout = () => {
   );
 };
 
-const ShippingInfo = ({
+const ShippingInfo = (
   user,
-  district, setDistrict, ward, setWard,
+  district,
+  setDistrict,
+  ward,
+  setWard,
   city,
   setCity,
   userInfo,
   setUserInfo,
   address,
-  setAddress,
-}) => {
+  setAddress
+) => {
   return (
     <div className="w-full 800px:w-[95%] bg-white rounded-md p-5 pb-8">
       <h5 className="text-[18px] font-[500]">Shipping Address</h5>
@@ -199,7 +205,7 @@ const ShippingInfo = ({
             <input
               type="number"
               required
-              value={user && ("0"+user.phoneNumber)}
+              value={user && "0" + user.phoneNumber}
               className={`${styles.input} !w-[95%]`}
             />
           </div>
@@ -249,33 +255,33 @@ const ShippingInfo = ({
 
         <div></div>
       </form>
-      <h5 className="text-[18px] cursor-pointer inline-block" >
+      <h5 className="text-[18px] cursor-pointer inline-block">
         Choose From saved address
       </h5>
       <div>
-          {user &&
-            user.addresses.map((item, index) => (
-              <div className="w-full flex mt-1">
-                <input
-                  type="checkbox"
-                  className="mr-3"
-                  value={item.addressType}
-                  onClick={() =>
-                    setAddress(item.address) ||
-                    setCity(item.city) ||
-                    setWard(item.ward) ||
-                    setDistrict(item.district)
-                  }
-                />
-                <h2>{item.addressType}</h2>
-              </div>
-            ))}
-        </div>
+        {user &&
+          user.addresses.map((item) => (
+            <div key={item._id} className="w-full flex mt-1">
+              <input
+                type="checkbox"
+                className="mr-3"
+                value={item.addressType}
+                onClick={() =>
+                  setAddress(item.address) ||
+                  setCity(item.city) ||
+                  setWard(item.ward) ||
+                  setDistrict(item.district)
+                }
+              />
+              <h2>{item.addressType}</h2>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };
 
-const CartData = ({
+const CartData = (
   handleSubmit,
   totalPrice,
   shipping,
@@ -284,7 +290,7 @@ const CartData = ({
   setCouponCode,
   discountPercentenge,
   rootTotalPrice
-}) => {
+) => {
   return (
     <div className="w-full bg-[#fff] rounded-md p-5 pb-8">
       <div className="flex justify-between">
@@ -293,7 +299,7 @@ const CartData = ({
           {rootTotalPrice.toLocaleString()} VND
         </h5>
       </div>
-      <br/>
+      <br />
       <div className="flex justify-between">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">subtotal:</h3>
         <h5 className="text-[18px] font-[600]">
@@ -311,7 +317,7 @@ const CartData = ({
       <div className="flex justify-between border-b pb-3">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">Discount:</h3>
         <h5 className="text-[18px] font-[600]">
-          - {(rootTotalPrice - subTotalPrice).toLocaleString() } VND
+          - {(rootTotalPrice - subTotalPrice).toLocaleString()} VND
         </h5>
       </div>
       <h5 className="text-[18px] font-[600] text-end pt-3">

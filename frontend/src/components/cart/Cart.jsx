@@ -3,20 +3,15 @@ import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { HiOutlineMinus, HiPlus } from "react-icons/hi";
 import styles from "../../styles/styles";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import {
-  addToCart,
-  changeQuantity,
-  removeFromCart,
-} from "../../redux/reducers/user";
+import { changeQuantity, removeFromCart } from "../../redux/reducers/user";
 import { loadUser } from "../../redux/actions/user";
 import axios from "axios";
 import { server } from "../../server";
 import { useNavigate } from "react-router-dom";
 
-const Cart = ({ setOpenCart }) => {
+const Cart = (setOpenCart) => {
   const { user, cart } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [listSelected, setListSelected] = useState([]);
@@ -68,16 +63,20 @@ const Cart = ({ setOpenCart }) => {
     const sumSelectedList = () => {
       const total =
         listSelected.length > 0
-          ? listSelected.reduce(
-            (acc, item) => {
-              if (item.product.discount && item.product.discount.status) { 
-                return acc + item?.quantity * (item?.product?.originalPrice - item?.product?.originalPrice * item?.product.discount?.percent / 100)
+          ? listSelected.reduce((acc, item) => {
+              if (item.product.discount && item.product.discount.status) {
+                return (
+                  acc +
+                  item?.quantity *
+                    (item?.product?.originalPrice -
+                      (item?.product?.originalPrice *
+                        item?.product.discount?.percent) /
+                        100)
+                );
               } else {
-                return acc + item?.quantity * item?.product?.originalPrice
+                return acc + item?.quantity * item?.product?.originalPrice;
               }
-            },
-              0
-            )
+            }, 0)
           : 0;
       setTotalPrice(total);
     };
@@ -166,14 +165,14 @@ const Cart = ({ setOpenCart }) => {
   );
 };
 
-const CartSingle = ({
+const CartSingle = (
   data,
   quantityChangeHandler,
   removeFromCartHandler,
   quantity,
   handleCheckboxChange,
-  checkItemSelected,
-}) => {
+  checkItemSelected
+) => {
   const navigate = useNavigate();
   const [value, setValue] = useState(quantity);
   const totalPrice = () => {
@@ -195,7 +194,7 @@ const CartSingle = ({
     }
   };
 
-  const decrement = (data) => {
+  const decrement = () => {
     setValue(value === 1 ? 1 : value - 1);
   };
 

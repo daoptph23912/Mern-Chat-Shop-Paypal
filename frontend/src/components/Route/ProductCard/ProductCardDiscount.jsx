@@ -4,18 +4,18 @@ import styles from "../../../styles/styles";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
 import Ratings from "../../Products/Ratings";
 
-const ProductCardDiscount = ({
+const ProductCardDiscount = (
   data,
   discount,
   setListOfSelectedProducts,
   listOfSelectedProducts,
-  checked,
-}) => {
+  checked
+) => {
   const [open, setOpen] = useState(false);
   const [check, setCheck] = useState(checked);
 
   const handleOnChangeCheckbox = (event) => {
-    setCheck(event.target.checked)
+    setCheck(event.target.checked);
   };
 
   useEffect(() => {
@@ -24,7 +24,9 @@ const ProductCardDiscount = ({
       setListOfSelectedProducts([...listOfSelectedProducts, data._id]);
     } else {
       // Nếu checkbox được bỏ chọn, loại bỏ giá trị khỏi mảng checkedValues
-      setListOfSelectedProducts(listOfSelectedProducts.filter((item) => item !== data._id));
+      setListOfSelectedProducts(
+        listOfSelectedProducts.filter((item) => item !== data._id)
+      );
     }
   }, [check]);
 
@@ -66,10 +68,12 @@ const ProductCardDiscount = ({
             </h6>
             {check && (
               <h4 className={`${styles.price}`}>
-                {(data.originalPrice - data.originalPrice * (discount.percent / 100)).toLocaleString() + " VND"}
+                {(
+                  data.originalPrice -
+                  data.originalPrice * (discount.percent / 100)
+                ).toLocaleString() + " VND"}
               </h4>
             )}
-            
           </div>
           <span className="font-[400] text-[14px] text-[#68d284]">
             {data?.sold_out} sold

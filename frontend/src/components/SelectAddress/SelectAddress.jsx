@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Select from 'react-select';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Select from "react-select";
 
-const SelectAddress = ({setAddress}) => {
+const SelectAddress = (setAddress) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
@@ -13,7 +13,9 @@ const SelectAddress = ({setAddress}) => {
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
-        const response = await axios.get('https://vapi.vnappmob.com/api/province/');
+        const response = await axios.get(
+          "https://vapi.vnappmob.com/api/province/"
+        );
         setProvinces(
           response.data.results.map((province) => ({
             value: province.province_id,
@@ -21,7 +23,7 @@ const SelectAddress = ({setAddress}) => {
           }))
         );
       } catch (error) {
-        console.error('Lỗi khi lấy danh sách tỉnh/thành phố:', error);
+        console.error("Lỗi khi lấy danh sách tỉnh/thành phố:", error);
       }
     };
 
@@ -30,9 +32,11 @@ const SelectAddress = ({setAddress}) => {
 
   const handleProvinceChange = async (option) => {
     setSelectedProvince(option);
-    setAddress("city",option.label)
+    setAddress("city", option.label);
     try {
-      const response = await axios.get(`https://vapi.vnappmob.com/api/province/district/${option.value}`);
+      const response = await axios.get(
+        `https://vapi.vnappmob.com/api/province/district/${option.value}`
+      );
       setDistricts(
         response.data.results.map((district) => ({
           value: district.district_id,
@@ -43,15 +47,17 @@ const SelectAddress = ({setAddress}) => {
       setSelectedWard(null);
       setWards([]);
     } catch (error) {
-      console.error('Lỗi khi lấy danh sách quận/huyện:', error);
+      console.error("Lỗi khi lấy danh sách quận/huyện:", error);
     }
   };
 
   const handleDistrictChange = async (option) => {
     setSelectedDistrict(option);
-    setAddress("district",option.label)
+    setAddress("district", option.label);
     try {
-      const response = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${option.value}`);
+      const response = await axios.get(
+        `https://vapi.vnappmob.com/api/province/ward/${option.value}`
+      );
       setWards(
         response.data.results.map((ward) => ({
           value: ward.ward_id,
@@ -60,13 +66,13 @@ const SelectAddress = ({setAddress}) => {
       );
       setSelectedWard(null);
     } catch (error) {
-      console.error('Lỗi khi lấy danh sách xã/phường:', error);
+      console.error("Lỗi khi lấy danh sách xã/phường:", error);
     }
   };
 
   const handleWardChange = (option) => {
     setSelectedWard(option);
-    setAddress("ward",option.label)
+    setAddress("ward", option.label);
   };
 
   return (

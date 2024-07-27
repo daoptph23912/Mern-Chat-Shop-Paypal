@@ -1,14 +1,17 @@
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
-const DetailOrder = ({ order, type }) => {
-    const url = type == "user" ? `/user/order/${order._id}` : `/order/${order._id}`
+const DetailOrder = (order, type) => {
+  const url =
+    type == "user" ? `/user/order/${order._id}` : `/order/${order._id}`;
   return (
     <tbody>
       <tr key={order._id} className="border-b">
-        <td className="px-4 py-2">{format(new Date(order.createdAt), 'yyyy-MM-dd HH:mm:ss')}</td>
+        <td className="px-4 py-2">
+          {format(new Date(order.createdAt), "yyyy-MM-dd HH:mm:ss")}
+        </td>
         <td className="px-4 py-2">{order.totalPrice.toLocaleString()} VND</td>
         <td className="px-4 py-2">
           <span

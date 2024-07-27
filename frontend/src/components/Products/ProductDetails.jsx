@@ -17,7 +17,7 @@ import { addToCart } from "../../redux/reducers/user";
 import { loadUser } from "../../redux/actions/user";
 import CountdownTimer from "../timer/CountdownTimer";
 
-const ProductDetails = ({ data }) => {
+const ProductDetails = (data) => {
   const { user, isAuthenticated, cart } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.products);
   const [count, setCount] = useState(1);
@@ -44,7 +44,7 @@ const ProductDetails = ({ data }) => {
     const isItemExists = cart && cart.find((i) => i.product == id);
     if (!user) {
       toast.error("Please login to add cart");
-      return
+      return;
     }
     if (isItemExists) {
       toast.error("Item already in cart!");
@@ -159,11 +159,12 @@ const ProductDetails = ({ data }) => {
                     </h4>
                   )}
                 </div>
-                {
-                  data.discount && data.discount.status && (
-                    <CountdownTimer startDay={data.discount.startDay} endDay={data.discount.endDay}/>
-                  )
-                }
+                {data.discount && data.discount.status && (
+                  <CountdownTimer
+                    startDay={data.discount.startDay}
+                    endDay={data.discount.endDay}
+                  />
+                )}
 
                 <div className="flex items-center mt-12 justify-between pr-3">
                   <div>
@@ -235,12 +236,12 @@ const ProductDetails = ({ data }) => {
   );
 };
 
-const ProductDetailsInfo = ({
+const ProductDetailsInfo = (
   data,
   products,
   totalReviewsLength,
-  averageRating,
-}) => {
+  averageRating
+) => {
   const [active, setActive] = useState(1);
 
   return (
@@ -291,8 +292,8 @@ const ProductDetailsInfo = ({
       {active === 2 && (
         <div className="w-full min-h-[40vh] flex flex-col items-center py-3 overflow-y-scroll">
           {data &&
-            data.reviews.map((item, index) => (
-              <div className="w-full flex my-2">
+            data.reviews.map((item) => (
+              <div key={item._id} className="w-full flex my-2">
                 <img
                   src={`${item.user.avatar}`}
                   className="w-[50px] h-[50px] rounded-full"

@@ -163,13 +163,13 @@ const Payment = () => {
   );
 };
 
-const PaymentInfo = ({
+const PaymentInfo = (
   open,
   setOpen,
   onApprove,
   createOrder,
-  cashOnDeliveryHandler,
-}) => {
+  cashOnDeliveryHandler
+) => {
   const [select, setSelect] = useState(1);
 
   return (
@@ -262,7 +262,7 @@ const PaymentInfo = ({
   );
 };
 
-const CartData = ({ orderData }) => {
+const CartData = (orderData) => {
   const shipping = orderData?.shipping;
   return (
     <div className="w-full bg-[#fff] rounded-md p-5 pb-8">

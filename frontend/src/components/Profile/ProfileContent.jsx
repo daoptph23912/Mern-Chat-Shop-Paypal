@@ -252,6 +252,7 @@ const AllOrders = () => {
           <div className="flex gap-2 justify-center">
             {tabs.map((tab, index) => (
               <div
+                key={tab._id}
                 className={`rounded-tr-[15px] rounded-bl-[15px] cursor-pointer text-white
                         mb-4 px-2 py-2
                         ${
@@ -277,7 +278,7 @@ const AllOrders = () => {
               </tr>
             </thead>
             {dataOrder?.map((i) => (
-              <DetailOrder order={i} type={ "user"} />
+              <DetailOrder key={i._id} order={i} type={"user"} />
             ))}
           </table>
         </div>

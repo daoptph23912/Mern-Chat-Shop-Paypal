@@ -1,7 +1,22 @@
 import axios from "axios";
 import { server } from "../../server";
-import { updateUserAddressRequest, updateUserAddressSuccess, loadUserFail, loadUserRequest, loadUserSuccess, updateUserInfoFailed, updateUserInfoRequest, updateUserInfoSuccess, deleteUserAddressRequest, deleteUserAddressSuccess } from "../reducers/user";
-import { LoadSellerFail, LoadSellerRequest, LoadSellerSuccess } from "../reducers/seller";
+import {
+  updateUserAddressRequest,
+  updateUserAddressSuccess,
+  loadUserFail,
+  loadUserRequest,
+  loadUserSuccess,
+  updateUserInfoFailed,
+  updateUserInfoRequest,
+  updateUserInfoSuccess,
+  deleteUserAddressRequest,
+  deleteUserAddressSuccess,
+} from "../reducers/user";
+import {
+  LoadSellerFail,
+  LoadSellerRequest,
+  LoadSellerSuccess,
+} from "../reducers/seller";
 
 // load user
 export const loadUser = () => async (dispatch) => {
@@ -32,11 +47,13 @@ export const loadSeller = () => async (dispatch) => {
 
 // user update information
 export const updateUserInformation =
-  (name, email, phoneNumber, password) => async (dispatch) => {
+  (name, email, phoneNumber) => async (dispatch) => {
+    // password
     try {
       dispatch(updateUserInfoRequest());
 
-      const { data } = await axios.put(`${server}/user/update-user-info`,
+      const { data } = await axios.put(
+        `${server}/user/update-user-info`,
         {
           email,
           phoneNumber,
@@ -49,7 +66,7 @@ export const updateUserInformation =
           },
         }
       );
-      
+
       dispatch(updateUserInfoSuccess(data.user));
     } catch (error) {
       dispatch(updateUserInfoFailed(error.response.data.message));
@@ -58,32 +75,35 @@ export const updateUserInformation =
 
 // update user address
 export const updatUserAddress = (info) => async (dispatch) => {
-    try {
-      dispatch(updateUserAddressRequest());
-      
-      const { data } = await axios.put(`${server}/user/update-user-addresses`,
-        { ...info }, { withCredentials: true }
-      );
+  try {
+    dispatch(updateUserAddressRequest());
 
-      dispatch(updateUserAddressSuccess(data.user));
-      dispatch(loadUser());
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const { data } = await axios.put(
+      `${server}/user/update-user-addresses`,
+      { ...info },
+      { withCredentials: true }
+    );
+
+    dispatch(updateUserAddressSuccess(data.user));
+    dispatch(loadUser());
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // delete user address
 export const deleteUserAddress = (id) => async (dispatch) => {
   try {
     dispatch(deleteUserAddressRequest());
 
-    const { data } = await axios.delete(`${server}/user/delete-user-address/${id}`,
+    const { data } = await axios.delete(
+      `${server}/user/delete-user-address/${id}`,
       { withCredentials: true }
     );
 
     dispatch(deleteUserAddressSuccess(data.user));
     dispatch(loadUser());
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
